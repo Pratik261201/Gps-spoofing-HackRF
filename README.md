@@ -1,129 +1,142 @@
-A well-structured GitHub repository for your **GPS spoofing project using `gps-sdr-sim` & `HackRF`** 
 
+````markdown
+# 🚀 GPS Spoofing Project using `gps-sdr-sim` & HackRF
 
----
+![GPS Spoofing Banner](screenshots/banner.png)
 
-### 📝 Suggested `README.md` Content
-
-Here’s a sample `README.md` you can start with:
-
----
-
-```markdown
-# GPS Spoofing using gps-sdr-sim
-
-This project demonstrates how to spoof GPS signals using [gps-sdr-sim](https://github.com/osqzss/gps-sdr-sim). The project allows simulation of both static and dynamic GPS locations using RTL-SDR or HackRF.
+> Simulate and spoof GPS signals — static or dynamic — using open-source tools and SDR hardware.
 
 ---
 
-## 🚀 Features
+## 🔥 Overview
 
-- Simulate static and dynamic GPS positions
-- Generate binary I/Q GPS signal files
-- Test scenarios with LLH, ECEF, or NMEA motion profiles
-- Spoof GPS location using hardware like HackRF
+This project demonstrates GPS signal spoofing using the powerful [gps-sdr-sim](https://github.com/osqzss/gps-sdr-sim) simulator. Generate custom GPS I/Q data streams to test devices with **static** or **dynamic** location profiles, and transmit using SDR devices like HackRF.
 
 ---
 
-## 📁 Project Structure
+## ⚙️ Features
 
+- 🎯 Simulate **static GPS locations** with precise coordinates and altitude
+- 🔄 Create **dynamic GPS tracks** with ECEF, LLH, or NMEA motion profiles
+- 💾 Generate GPS binary I/Q signal files compatible with SDR transmitters
+- 📡 Transmit spoofed signals using **HackRF** or **RTL-SDR**
+- 📊 Supports ephemeris RINEX files for accurate satellite data
 
+---
 
+## 🗂️ Project Structure
+
+```plaintext
 gps-spoofing-sim/
-├── ephemeris/        # RINEX ephemeris files
-├── user\_motion/      # Dynamic motion files (ECEF, LLH, NMEA)
-├── output/           # Generated GPS signal binary files
-├── simulation\_scripts/ # Shell scripts for automation
-├── docs/             # Additional documentation
-
-
-
----
-
-## 🛠 Requirements
-
-- Linux or WSL
-- `gps-sdr-sim` (C++ based simulator)
-- Ephemeris file (RINEX format, e.g., `brdc1520.25n`)
-- Optionally: HackRF or RTL-SDR for transmitting
-- (Optional) GNSS-SDR for analysis
-
----
-
-
-
-
-## 🧪 Simulation Commands
-
-### Static Location
-```bash
-./gps-sdr-sim -e brdc1520.25n -l 38.6139,37.2090,100 -t 2025/06/1,9:50:00 -d 600 -b 8 -o gpssim.bin
+├── ephemeris/           # RINEX ephemeris files (e.g., brdc1520.25n)
+├── user_motion/         # Dynamic motion files (ECEF, LLH, NMEA)
+├── output/              # Generated GPS signal binary files
+├── simulation_scripts/  # Automation shell scripts
+├── docs/                # Additional documentation and references
+├── screenshots/         # Images and examples
 ````
 
-### Dynamic (ECEF)
+---
 
-```bash
-./gps-sdr-sim -e brdc1520.25n -u user_motion/circle.csv -t 2025/06/1,9:50:00 -d 600 -b 8 -o gpssim.bin
-```
+## 🛠️ Requirements
 
-### Dynamic (LLH)
-
-```bash
-./gps-sdr-sim -e brdc1520.25n -x user_motion/circle_llh.csv -t 2025/06/1,9:50:00 -d 600 -b 8 -o gpssim.bin
-```
-
-### Dynamic (NMEA GGA)
-
-```bash
-./gps-sdr-sim -e brdc1520.25n -g user_motion/triumphv3.txt -t 2025/06/1,9:50:00 -d 600 -b 8 -o gpssim.bin
-```
+* Linux or WSL environment
+* [gps-sdr-sim](https://github.com/osqzss/gps-sdr-sim) (C++ GPS signal simulator)
+* Ephemeris file in RINEX format (e.g., `brdc1520.25n`)
+* HackRF or RTL-SDR (for transmission)
+* (Optional) GNSS-SDR for signal analysis
 
 ---
 
-## 📡 Transmitting the GPS Signal
+## 🧪 How to Run Simulations
 
-To transmit using HackRF:
+### Static Location Example
 
 ```bash
-hackrf_transfer -t gpssim.bin -f 1575420000 -s 2600000
+./gps-sdr-sim -e ephemeris/brdc1520.25n -l 38.6139,37.2090,100 -t 2025/06/1,09:50:00 -d 600 -b 8 -o output/gpssim.bin
 ```
 
-⚠️ **WARNING:** Spoofing GPS is illegal in many countries. Only test in controlled environments like Faraday cages or with shielded receivers.
+### Dynamic Location Examples
+
+* **ECEF Motion Profile**
+
+  ```bash
+  ./gps-sdr-sim -e ephemeris/brdc1520.25n -u user_motion/circle.csv -t 2025/06/1,09:50:00 -d 600 -b 8 -o output/gpssim.bin
+  ```
+
+* **LLH Motion Profile**
+
+  ```bash
+  ./gps-sdr-sim -e ephemeris/brdc1520.25n -x user_motion/circle_llh.csv -t 2025/06/1,09:50:00 -d 600 -b 8 -o output/gpssim.bin
+  ```
+
+* **NMEA GGA Motion Profile**
+
+  ```bash
+  ./gps-sdr-sim -e ephemeris/brdc1520.25n -g user_motion/triumphv3.txt -t 2025/06/1,09:50:00 -d 600 -b 8 -o output/gpssim.bin
+  ```
+
+---
+
+## 📡 Transmitting the GPS Signal with HackRF
+
+Use the following command to transmit the generated GPS I/Q file:
+
+```bash
+hackrf_transfer -t output/gpssim.bin -f 1575420000 -s 2600000
+```
+
+> **⚠️ WARNING:** GPS spoofing is illegal in many jurisdictions. Use only in controlled environments such as Faraday cages or shielded labs for research and testing.
 
 ---
 
 ## 📸 Screenshots
 
-![Example Output](screenshots/example_output.png)
+![GPS Signal Simulation Output](screenshots/example_output.png)
 
 ---
 
 ## 📄 License
 
-MIT License
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
 ## 👨‍💻 Author
 
-Pratik Chouragadey
+**Pratik Chouragadey**
 IEEE PES Society, MITS-GWL
-[LinkedIn](#) | [Email](#)
 
-````
+[LinkedIn](https://linkedin.com/in/pratik-chouragadey) | [Email](mailto:pratik@example.com)
 
 ---
 
-### 🔄 Optional Automation Script (run_simulation.sh)
+## 🔄 Optional: Automation Script
+
+Run this script to execute a predefined simulation:
 
 ```bash
 #!/bin/bash
-./gps-sdr-sim -e ephemeris/brdc1520.25n -x user_motion/circle_llh.csv -t 2025/06/1,9:50:00 -d 600 -b 8 -o output/gpssim.bin
-````
+./gps-sdr-sim -e ephemeris/brdc1520.25n -x user_motion/circle_llh.csv -t 2025/06/1,09:50:00 -d 600 -b 8 -o output/gpssim.bin
+```
 
-Make it executable:
+Make executable:
 
 ```bash
 chmod +x simulation_scripts/run_simulation.sh
 ```
+
+Run:
+
+```bash
+./simulation_scripts/run_simulation.sh
+```
+
+---
+
+Thank you for exploring GPS spoofing safely and responsibly! 🚀
+
+```
+
+---
 
