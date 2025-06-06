@@ -27,7 +27,7 @@ This project demonstrates how to spoof GPS signals using [gps-sdr-sim](https://g
 
 ## 📁 Project Structure
 
-```
+
 
 gps-spoofing-sim/
 ├── ephemeris/        # RINEX ephemeris files
@@ -36,7 +36,7 @@ gps-spoofing-sim/
 ├── simulation\_scripts/ # Shell scripts for automation
 ├── docs/             # Additional documentation
 
-````
+
 
 ---
 
