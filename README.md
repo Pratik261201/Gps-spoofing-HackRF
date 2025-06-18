@@ -92,7 +92,7 @@ hackrf_transfer -t output/gpssim.bin -f 1575420000 -s 2600000
 
 ## 📸 Screenshots
 
-![GPS Signal Simulation Output](screenshots/example_output.png)
+![GPS Signal Simulation Output](screenshots/Screenshot (1).png)
 
 ---
 
