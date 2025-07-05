@@ -1,5 +1,4 @@
 
-
 # 🚀 GPS Spoofing Project using `gps-sdr-sim` & HackRF
 
 ![GPS Spoofing Banner](screenshots/banner.png)
